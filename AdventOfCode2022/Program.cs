@@ -10,11 +10,15 @@ namespace AdventOfCode2022
       var day1TestInput = ReadFile.ReadLinesInTextFile("Day01_example.txt");
       var day1Test = new Day01(day1TestInput);
       var day1TestResult = day1Test.GetElfWithMostCaloriesResult();
-      Console.WriteLine("Day 01 Test  : " + day1TestResult);
+      Console.WriteLine("Day 01 Test 1: " + day1TestResult);
       var day1Part1Input = ReadFile.ReadLinesInTextFile("Day01_part1.txt");
       var day1Part1 = new Day01(day1Part1Input);
       var day1Part1Result = day1Part1.GetElfWithMostCaloriesResult();
       Console.WriteLine("Day 01 Part 1: " + day1Part1Result);
+      var day1TestResult2 = day1Test.GetTopThreeElvesResult();
+      Console.WriteLine("Day 01 Test 2: " + day1TestResult2);
+      var day1Part2Result = day1Part1.GetTopThreeElvesResult();
+      Console.WriteLine("Day 01 Part 1: " + day1Part2Result);
     }
   }
 }

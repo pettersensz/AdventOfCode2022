@@ -51,6 +51,17 @@ namespace AdventOfCode2022.Week01
       return mostCaloriesElf;
     }
 
+    internal int GetTopThreeElvesResult()
+    {
+      var topThreeElves = Elves.OrderByDescending(elf => elf.GetTotalCalories()).Take(3);
+      var calories = 0;
+      foreach(var elf in topThreeElves)
+      {
+        calories += elf.GetTotalCalories();
+      }
+      return calories;
+    }
+
     internal class Food
     {
       public int Calories { get; set; }
