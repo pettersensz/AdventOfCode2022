@@ -28,6 +28,29 @@ namespace AdventOfCode2022.Week01
       Elves.Add(elf);
     }
 
+
+    internal int GetElfWithMostCaloriesResult()
+    {
+      Elf elfWithMostCalories = GetElfWithMostCalories();
+      var calories = elfWithMostCalories.GetTotalCalories();
+      return calories;
+    }
+
+    private Elf GetElfWithMostCalories()
+    {
+      var mostCaloriesElf = Elves.First();
+      var calories = mostCaloriesElf.GetTotalCalories();
+      foreach (var elf in Elves)
+      {
+        if(elf.GetTotalCalories() > calories)
+        {
+          mostCaloriesElf = elf;
+          calories = elf.GetTotalCalories();
+        }
+      }
+      return mostCaloriesElf;
+    }
+
     internal class Food
     {
       public int Calories { get; set; }
@@ -36,6 +59,17 @@ namespace AdventOfCode2022.Week01
     internal class Elf
     {
       public List<Food> Foods { get; set; } = new List<Food>();
+
+      internal int GetTotalCalories()
+      {
+        var calories = 0;
+        foreach(var food in Foods)
+        {
+          calories += food.Calories;
+        }
+        return calories;
+      }
     }
+
   }
 }
