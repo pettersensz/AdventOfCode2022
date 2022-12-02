@@ -19,6 +19,16 @@ namespace AdventOfCode2022
       Console.WriteLine("Day 01 Test 2: " + day1TestResult2);
       var day1Part2Result = day1Part1.GetTopThreeElvesResult();
       Console.WriteLine("Day 01 Part 1: " + day1Part2Result);
+      Console.WriteLine("---- ---- ---- ---- ---- ---- ---- ----");
+
+      var day2TestInput = ReadFile.ReadLinesInTextFile("Day02_example.txt");
+      var day2Test = new Day02(day2TestInput);
+      var day2TestPart1 = day2Test.GetTotalScore();
+      Console.WriteLine("Day 02 Test 1: " + day2TestPart1);
+      var day2Input = ReadFile.ReadLinesInTextFile("Day02_large.txt");
+      var day2 = new Day02(day2Input);
+      var day2Part1 = day2.GetTotalScore();
+      Console.WriteLine("Day 02 Part 1: " + day2Part1);
     }
   }
 }
