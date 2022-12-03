@@ -38,6 +38,19 @@
    return prioritiesSum;
   }
 
+  internal int GetPrioritiesForGroup()
+  {
+   var priorities = 0;
+   for (var i = 0; i < Rucksacks.Count; i = i + 3)
+   {
+    var commonChar = FindCommonCharInThree(i);
+    var priority = GetPriority(commonChar);
+    //Console.WriteLine(commonChar + " - " + priority);
+    priorities += priority;
+   }
+   return priorities;
+  }
+
   private int GetPriority(char character)
   {
    var priority = character % 32;
@@ -54,6 +67,15 @@
     return commonChar;
    }
    throw (new InvalidOperationException("Complartments not initialized"));
+  }
+
+  private char FindCommonCharInThree(int i)
+  {
+   var first = Rucksacks[i].Compartment1.Union(Rucksacks[i].Compartment2).ToList();
+   var second = Rucksacks[i + 1].Compartment1.Union(Rucksacks[i + 1].Compartment2).ToList();
+   var third = Rucksacks[i + 2].Compartment1.Union(Rucksacks[i + 2].Compartment2).ToList();
+   var commonChar = first.Where(c => second.Contains(c)).Where(c => third.Contains(c)).ToList();
+   return commonChar.First();
   }
  }
 }

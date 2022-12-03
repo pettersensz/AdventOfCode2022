@@ -43,6 +43,11 @@ namespace AdventOfCode2022
             var day3 = new Day03(day3Input);
             var day3Part1 = day3.GetPriorities();
             Console.WriteLine("Day 03 Part 1: " + day3Part1);
+            var day3TestPart2 = day3Test.GetPrioritiesForGroup();
+            Console.WriteLine("Day 03 Test 2: " + day3TestPart2);
+            var day3Part2 = day3.GetPrioritiesForGroup();
+            Console.WriteLine("Day 03 Part 2: " + day3Part2);
+            Console.WriteLine("---- ---- ---- ---- ---- ---- ---- ----");
         }
     }
 }
