@@ -29,6 +29,10 @@ namespace AdventOfCode2022
       var day2 = new Day02(day2Input);
       var day2Part1 = day2.GetTotalScore();
       Console.WriteLine("Day 02 Part 1: " + day2Part1);
+      var day2TestPart2 = day2Test.GetTotalScoreWithDesiredOutcome();
+      Console.WriteLine("Day 02 Test 2: " + day2TestPart2);
+      var day2Part2 = day2.GetTotalScoreWithDesiredOutcome();
+      Console.WriteLine("Day 02 Part 2: " + day2Part2);
     }
   }
 }

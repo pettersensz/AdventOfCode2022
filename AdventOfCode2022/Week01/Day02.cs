@@ -1,22 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdventOfCode2022.Week01
+﻿namespace AdventOfCode2022.Week01
 {
   internal class Day02
   {
     public Player Opponent = new();
     public Player You = new();
+    public List<Winner> DesiredOutcomes = new();
     public Day02(string[] input)
     {
-      foreach(var line in input)
+      foreach (var line in input)
       {
         var parts = line.ToCharArray();
         Opponent.Moves.Add(GetOpponentMove(parts[0]));
         You.Moves.Add(GetYourMove(parts[2]));
+        DesiredOutcomes.Add(GetDesiredOutcome(parts[2]));
+      }
+    }
+
+    private Winner GetDesiredOutcome(char c)
+    {
+      switch (c)
+      {
+        case 'X':
+          return Winner.Opponent;
+        case 'Y':
+          return Winner.Draw;
+        case 'Z':
+          return Winner.You;
+        default:
+          throw new InvalidDataException("The input character is not supported (GetDesiredOutcome)");
       }
     }
 
@@ -31,7 +42,7 @@ namespace AdventOfCode2022.Week01
         case 'Z':
           return Move.Scissor;
         default:
-          throw new InvalidDataException("The input character is not supported");
+          throw new InvalidDataException("The input character is not supported (GetYourMove)");
       }
     }
 
@@ -46,7 +57,45 @@ namespace AdventOfCode2022.Week01
         case 'C':
           return Move.Scissor;
         default:
-          throw new InvalidDataException("The input character is not supported");
+          throw new InvalidDataException("The input character is not supported (GetOpponentMove)");
+      }
+    }
+
+    internal int GetTotalScoreWithDesiredOutcome()
+    {
+      var score = 0;
+      for (int i = 0; i < Opponent.Moves.Count; i++)
+      {
+        var winner = DesiredOutcomes[i];
+        var scoreFromWinner = DetermineScoreFromWinner(winner);
+        Move yourMove = DetermineMoveBasedOnWinner(Opponent.Moves[i], winner);
+        var scoreFromMove = DetermineScoreFromMove(yourMove);
+        score += scoreFromWinner + scoreFromMove;
+      }
+      return score;
+    }
+
+    private Move DetermineMoveBasedOnWinner(Move move, Winner winner)
+    {
+      switch (move)
+      {
+        case Move.Rock:
+          if (winner == Winner.Draw) return Move.Rock;
+          if (winner == Winner.Opponent) return Move.Scissor;
+          if (winner == Winner.You) return Move.Paper;
+          throw new Exception("Why are you here!?");
+        case Move.Paper:
+          if (winner == Winner.Draw) return Move.Paper;
+          if (winner == Winner.Opponent) return Move.Rock;
+          if (winner == Winner.You) return Move.Scissor;
+          throw new Exception("Why are you here!?");
+        case Move.Scissor:
+          if (winner == Winner.Draw) return Move.Scissor;
+          if (winner == Winner.Opponent) return Move.Paper;
+          if (winner == Winner.You) return Move.Rock;
+          throw new Exception("Why are you here!?");
+        default:
+          throw new Exception("Unsupported Move!");
       }
     }
 
@@ -129,7 +178,8 @@ namespace AdventOfCode2022.Week01
       Draw
     }
 
-    internal enum Move {
+    internal enum Move
+    {
       Rock,
       Paper,
       Scissor
